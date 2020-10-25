@@ -12,6 +12,8 @@
 #include "fdt.h"
 #include "unprivileged_memory.h"
 #include "disabled_hart_mask.h"
+#include "syscall.h"
+#include <string.h>
 #include <errno.h>
 #include <stdarg.h>
 #include <stdio.h>
@@ -35,8 +37,15 @@ static uintptr_t mcall_console_putchar(uint8_t ch)
 
 void putstring(const char* s)
 {
-  while (*s)
+ while (*s)
     mcall_console_putchar(*s++);
+  volatile uint64_t magic_mem[8] __attribute__((aligned(64)));
+  magic_mem[0] = SYS_write;
+  magic_mem[1] = 1;
+  magic_mem[2] = (uintptr_t)s;
+  magic_mem[3] = strlen(s);
+
+  mcall_htif_syscall((uintptr_t)magic_mem);
 }
 
 void vprintm(const char* s, va_list vl)
