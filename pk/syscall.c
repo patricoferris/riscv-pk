@@ -146,7 +146,7 @@ int sys_fstat64(int fd, void* st)
 
   if (f)
   {
-    r = file_stat(f, st);
+    r = file_stat64(f, st);
     file_decref(f);
   }
 
