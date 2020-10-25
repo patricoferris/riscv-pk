@@ -33,5 +33,6 @@ struct frontend_stat {
 };
 
 void copy_stat(struct stat* dest, struct frontend_stat* src);
+void copy_stat64(struct stat64* dest, struct frontend_stat* src);
 
 #endif

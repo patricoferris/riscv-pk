@@ -33,6 +33,7 @@ ssize_t file_read(file_t* f, void* buf, size_t n);
 ssize_t file_lseek(file_t* f, size_t ptr, int dir);
 int file_truncate(file_t* f, off_t len);
 int file_stat(file_t* f, struct stat* s);
+int file_stat64(file_t* f, struct stat64* s);
 int fd_close(int fd);
 
 void file_init();
