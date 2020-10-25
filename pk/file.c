@@ -163,6 +163,14 @@ int file_stat(file_t* f, struct stat* s)
   return ret;
 }
 
+int file_stat64(file_t* f, struct stat64* s)
+{
+  struct frontend_stat buf;
+  long ret = frontend_syscall(SYS_fstat, f->kfd, va2pa(&buf), 0, 0, 0, 0, 0);
+  copy_stat(s, &buf);
+  return ret;
+}
+
 int file_truncate(file_t* f, off_t len)
 {
   return frontend_syscall(SYS_ftruncate, f->kfd, len, 0, 0, 0, 0, 0);

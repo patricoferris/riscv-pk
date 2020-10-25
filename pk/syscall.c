@@ -139,6 +139,20 @@ int sys_fstat(int fd, void* st)
   return r;
 }
 
+int sys_fstat64(int fd, void* st)
+{
+  int r = -EBADF;
+  file_t* f = file_get(fd);
+
+  if (f)
+  {
+    r = file_stat(f, st);
+    file_decref(f);
+  }
+
+  return r;
+}
+
 int sys_fcntl(int fd, int cmd, int arg)
 {
   int r = -EBADF;
@@ -489,6 +503,7 @@ long do_syscall(long a0, long a1, long a2, long a3, long a4, long a5, unsigned l
     [SYS_set_tid_address] = sys_stub_nosys,
     [SYS_set_robust_list] = sys_stub_nosys,
     [SYS_madvise] = sys_stub_nosys,
+    [SYS_fstat64] = sys_fstat64,
   };
 
   const static void* old_syscall_table[] = {

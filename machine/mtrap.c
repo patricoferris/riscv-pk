@@ -45,7 +45,7 @@ void putstring(const char* s)
   magic_mem[2] = (uintptr_t)s;
   magic_mem[3] = strlen(s);
 
-  mcall_htif_syscall((uintptr_t)magic_mem);
+  htif_syscall((uintptr_t)magic_mem);
 }
 
 void vprintm(const char* s, va_list vl)

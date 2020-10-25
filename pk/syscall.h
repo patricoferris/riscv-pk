@@ -21,6 +21,7 @@
 #define SYS_getcwd 17
 #define SYS_fstat 80
 #define SYS_fstatat 79
+#define SYS_fstat64 291
 #define SYS_faccessat 48
 #define SYS_pread 67
 #define SYS_pwrite 68
